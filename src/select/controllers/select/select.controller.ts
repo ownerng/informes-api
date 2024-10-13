@@ -13,7 +13,7 @@ export class SelectController {
   }
 
   // Endpoint para obtener las entregas items
-  @Get('entregas-items')
+  @Get('entregas')
   getEntregasItems() {
     const entregasItems = this.SelectService.getEntregasItems();
     return { entregasItems };
