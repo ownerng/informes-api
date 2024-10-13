@@ -1,0 +1,28 @@
+{
+    "fecha": "dd/mm/yyyy",
+    "asistentes": 12,
+    "lugar": "barranca upia",
+    "entregas": [
+        {
+            "item1": {
+                "cantidad": 20
+            },
+            "item2": {
+                "cantidad": 30
+            },
+            "item3": {
+                "cantidad": 40
+            }
+        }
+    ],
+    "pdfAsistencia": "asistencia.pdf",
+    "pdfCertificado": "certicado.pdf",
+    "images": [
+        {
+            "image1": "imagen1.jpg"
+        },
+        {
+            "image2": "imagen2.jpg"
+        }
+    ]
+}

@@ -5,6 +5,7 @@ import * as Docxtemplater from 'docxtemplater';
 import * as path from 'path';
 import ImageModule from 'docxtemplater-image-module-free';
 import { DocumentDto } from '../../dtos/documents.dto';
+import * as mime from 'mime-types';  // Para identificar el tipo de archivo
 
 @Injectable()
 export class DocumentService {
@@ -27,12 +28,16 @@ export class DocumentService {
 
     const doc = new Docxtemplater(zip, { modules: [imageModule] });
 
+    // Procesar asistencia y certificado (imágenes o PDF)
+    const processedAsistencia = this.processFile(asistencia);
+    const processedCertificado = this.processFile(certificado);
+
     // Insertar los datos en el documento
     doc.setData({
       fecha,
       actividad,
-      asistencia: JSON.parse(asistencia),
-      certificado,
+      asistencia: processedAsistencia, // Procesado (imagen o texto si es PDF)
+      certificado: processedCertificado, // Procesado (imagen o texto si es PDF)
       items: JSON.parse(images),
       imagen: files.map(file => file.filename), // Agregar las imágenes
     });
@@ -50,5 +55,27 @@ export class DocumentService {
     fs.writeFileSync(outputPath, buf);
 
     return outputPath;
+  }
+
+  // Método para procesar archivo de asistencia o certificado
+  private processFile(filePath: string): string | Buffer {
+    const fullPath = path.resolve('./uploads', filePath);
+    const mimeType = mime.lookup(fullPath);
+
+    if (!mimeType) {
+      throw new Error('Tipo de archivo no identificado');
+    }
+
+    // Si es una imagen, devolvemos el contenido como imagen
+    if (mimeType.startsWith('image/')) {
+      return fullPath;  // Usaremos el módulo de imágenes para procesarlo
+    }
+
+    // Si es un PDF, podrías procesarlo de manera diferente
+    if (mimeType === 'application/pdf') {
+      return 'Este es un archivo PDF adjunto'; // O convertirlo a imagen
+    }
+
+    throw new Error('Tipo de archivo no soportado');
   }
 }
