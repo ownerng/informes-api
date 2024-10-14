@@ -1,0 +1,26 @@
+{
+    "entregasItems": [
+        "Perifoneo",
+        "Almuerzos",
+        "Refrigerios",
+        "Sillas",
+        "Mesas",
+        "Carpa"
+      ],
+      
+    "lugares": [
+        "Uribe",
+        "Puerto Lleras",
+        "La Macarena",
+        "Puerto Concordia",
+        "Restrepo",
+        "Mesetas",
+        "San Juan de Arama",
+        "Cumaral",
+        "Vista Hermosa",
+        "Mapiripán",
+        "PIC Departamental",
+        "Barranca de Upía"
+    ]
+
+}
